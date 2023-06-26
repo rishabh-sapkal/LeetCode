@@ -43,20 +43,51 @@ class LinkedList {
     delAtBeg(){
         const secondValOnwards = this.head.next;
         this.head.next = null;
-        this.head = secondVal;
+        this.head = secondValOnwards;
     }
     //del at en
     delAtEnd(){
         let temp = this.head;
        
-        while(temp.next !== null){
+       if(this.head.next === null){
+           this.head = null
+           return
+       }
+        while(temp.next.next !== null){
             temp = temp.next;
         }
-        temp()
+        temp.next = null;
         
     }
     //del at a position specified
+    delAtSpecifiedPosition(position){
+        let temp = this.head;
+        
+        if(position === 0){
+            this.delAtBeg();
+            return
+        }
+        for(let i = 0; temp != null && i < position - 1; i++){
+            temp = temp.next
+        }
+        const newTemp = temp.next.next;
+        temp.next = newTemp;
+    }
     //insert at a position specified
+    insertAtPosition(position,value){
+        let temp = this.head;
+        
+        const newNode = new Node(value);
+        
+        for(let i=0; temp !==null && i < position-1 ; i++ ){
+            temp = temp.next;
+        }
+        
+        const positionalNode = temp.next;
+        newNode.next = positionalNode;
+        temp.next = newNode
+        
+    }
 
 }
 const list = new LinkedList();
@@ -64,7 +95,8 @@ list.addAtEnd(1)
 list.addAtEnd(2)
 list.addAtEnd(3)
 list.addAtBeg(9)
-list.delAtBeg()
-list.delAtBeg()
+list.delAtSpecifiedPosition(0)
+list.insertAtPosition(1,55)
+
 list.print()
 
